@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: satiety-frontend
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: satiety-frontend
+
+  template:
+    metadata:
+      labels:
+        app: satiety-frontend
+
+    spec:
+      containers:
+        - name: frontend
+
+          image: satiety-frontend:v3
+
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 80

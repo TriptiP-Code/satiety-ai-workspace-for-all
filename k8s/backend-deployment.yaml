@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: satiety-backend
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: satiety-backend
+
+  template:
+    metadata:
+      labels:
+        app: satiety-backend
+
+    spec:
+      containers:
+        - name: backend
+          image: satiety-backend:v1
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 5000
+
+          envFrom:
+            - configMapRef:
+                name: backend-config
+
+          env:
+            - name: SUPABASE_SERVICE_ROLE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: SUPABASE_SERVICE_ROLE_KEY
+
+            - name: SUPABASE_ANON_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: SUPABASE_ANON_KEY
+
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: JWT_SECRET

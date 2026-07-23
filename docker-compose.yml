@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+
+  backend:
+    build:
+      context: ./satiety-ai-workspace-backend
+    container_name: satiety-backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./satiety-ai-workspace-backend/.env
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./satiety-ai-workspace-frontend
+    container_name: satiety-frontend
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./satiety-ai-workspace-frontend/.env
+    depends_on:
+      - backend
+    restart: unless-stopped
