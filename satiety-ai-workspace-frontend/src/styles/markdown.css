@@ -1,0 +1,138 @@
+.markdown {
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+/* DARK MODE */
+
+.dark .markdown {
+  color: #e2e8f0;
+}
+
+.dark .markdown h1,
+.dark .markdown h2,
+.dark .markdown h3,
+.dark .markdown h4 {
+  color: white;
+}
+
+/* LIGHT MODE */
+
+html:not(.dark) .markdown {
+  color: #1e293b;
+}
+
+html:not(.dark) .markdown h1,
+html:not(.dark) .markdown h2,
+html:not(.dark) .markdown h3,
+html:not(.dark) .markdown h4 {
+  color: #0f172a;
+}
+
+.markdown h1 {
+  font-size: 2rem;
+}
+
+.markdown h2 {
+  font-size: 1.6rem;
+}
+
+.markdown h3 {
+  font-size: 1.3rem;
+}
+
+.markdown p {
+  margin: 0.75rem 0;
+}
+
+.markdown ul,
+.markdown ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.markdown li {
+  margin: 0.4rem 0;
+}
+
+.dark .markdown blockquote {
+  border-left: 4px solid #6366f1;
+  color: #94a3b8;
+  padding-left: 1rem;
+  margin: 1rem 0;
+}
+
+html:not(.dark) .markdown blockquote {
+  border-left: 4px solid #6366f1;
+  color: #475569;
+  padding-left: 1rem;
+  margin: 1rem 0;
+}
+
+.markdown hr {
+  border: none;
+  border-top: 1px solid #334155;
+  margin: 2rem 0;
+}
+
+/* ---------- Tables ---------- */
+
+.markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.dark .markdown th {
+  background: #1e293b;
+  color: white;
+}
+
+.dark .markdown tr:nth-child(even) {
+  background: #111827;
+}
+
+html:not(.dark) .markdown th {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+html:not(.dark) .markdown tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.markdown td {
+  padding: 12px;
+  border: 1px solid #334155;
+}
+
+
+/* ---------- Inline Code ---------- */
+
+.dark .markdown code {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+html:not(.dark) .markdown code {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+/* ---------- Code Blocks ---------- */
+
+.markdown pre {
+  background: #1e293b;
+  border-radius: 12px;
+  overflow-x: auto;
+  padding: 18px;
+  margin: 1rem 0;
+}
+
+.markdown pre code {
+  background: transparent;
+  padding: 0;
+  font-size: 14px;
+  white-space: pre;
+}
