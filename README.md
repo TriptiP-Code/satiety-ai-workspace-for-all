@@ -1,4 +1,4 @@
-# 🥗 Satiety AI
+# Satiety AI
 
 An AI-powered nutrition assistant that helps users analyze meals, track conversations, and receive personalized dietary guidance.
 
