@@ -20,9 +20,9 @@ spec:
       containers:
         - name: frontend
 
-          image: satiety-frontend:v3
+          image: triptipcode/satiety-frontend:latest
 
-          imagePullPolicy: Never
+          imagePullPolicy: Always
 
           ports:
             - containerPort: 80
