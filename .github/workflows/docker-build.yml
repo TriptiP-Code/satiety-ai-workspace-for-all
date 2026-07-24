@@ -1,40 +1,44 @@
-name: Docker Build
+name: Docker Build & Push
 
 on:
   push:
     branches:
       - main
-    paths:
-      - "satiety-ai-workspace-backend/**"
-      - "satiety-ai-workspace-frontend/**"
-      - "docker-compose.yml"
 
 jobs:
-
-  build-frontend:
-    name: Build Frontend Docker Image
+  docker-build-push:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Build Frontend Docker Image
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      # Frontend Image
+      - name: Build Frontend Image
         run: |
           docker build \
-            -t satiety-frontend:latest \
-            ./satiety-ai-workspace-frontend
+          -t ${{ secrets.DOCKER_USERNAME }}/satiety-frontend:latest \
+          ./satiety-ai-workspace-frontend
 
-  build-backend:
-    name: Build Backend Docker Image
-    runs-on: ubuntu-latest
+      - name: Push Frontend Image
+        run: |
+          docker push \
+          ${{ secrets.DOCKER_USERNAME }}/satiety-frontend:latest
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Build Backend Docker Image
+      # Backend Image
+      - name: Build Backend Image
         run: |
           docker build \
-            -t satiety-backend:latest \
-            ./satiety-ai-workspace-backend
+          -t ${{ secrets.DOCKER_USERNAME }}/satiety-backend:latest \
+          ./satiety-ai-workspace-backend
+
+      - name: Push Backend Image
+        run: |
+          docker push \
+          ${{ secrets.DOCKER_USERNAME }}/satiety-backend:latest
