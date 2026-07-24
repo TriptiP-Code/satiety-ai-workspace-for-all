@@ -8,6 +8,12 @@ on:
 jobs:
   docker-build-push:
     runs-on: self-hosted
+    # This self-hosted runner is Windows and has PowerShell scripts disabled.
+    # Use cmd.exe for `run` steps so Actions does not dot-source its generated
+    # PowerShell wrapper script.
+    defaults:
+      run:
+        shell: cmd
 
     steps:
       - name: Checkout Repository
