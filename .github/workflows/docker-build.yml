@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   docker-build-push:
     runs-on: self-hosted
