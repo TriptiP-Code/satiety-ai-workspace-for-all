@@ -222,6 +222,16 @@ http://localhost
 
 The frontend is served by NGINX and API requests are routed through Kubernetes Ingress.
 
+## Create Kubernetes Secret
+
+Before deploying, create the backend secret:
+
+```powershell
+kubectl create secret generic backend-secret `
+  --from-literal=SUPABASE_SERVICE_ROLE_KEY="..." `
+  --from-literal=SUPABASE_ANON_KEY="..." `
+  --from-literal=JWT_SECRET="..."
+
 ---
 
 # Future Improvements
