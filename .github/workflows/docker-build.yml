@@ -7,7 +7,7 @@ on:
 
 jobs:
   docker-build-push:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout Repository
@@ -42,3 +42,15 @@ jobs:
         run: |
           docker push \
           ${{ secrets.DOCKER_USERNAME }}/satiety-backend:latest
+
+      - name: Restart Frontend Deployment
+        run: kubectl rollout restart deployment/satiety-frontend
+
+      - name: Restart Backend Deployment
+        run: kubectl rollout restart deployment/satiety-backend
+
+      - name: Wait for Frontend
+        run: kubectl rollout status deployment/satiety-frontend
+
+      - name: Wait for Backend
+        run: kubectl rollout status deployment/satiety-backend
