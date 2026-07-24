@@ -1,0 +1,40 @@
+name: Docker Build
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "satiety-ai-workspace-backend/**"
+      - "satiety-ai-workspace-frontend/**"
+      - "docker-compose.yml"
+
+jobs:
+
+  build-frontend:
+    name: Build Frontend Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build Frontend Docker Image
+        run: |
+          docker build \
+            -t satiety-frontend:latest \
+            ./satiety-ai-workspace-frontend
+
+  build-backend:
+    name: Build Backend Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build Backend Docker Image
+        run: |
+          docker build \
+            -t satiety-backend:latest \
+            ./satiety-ai-workspace-backend
