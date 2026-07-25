@@ -1,7 +1,6 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useState,
 } from "react";
 
@@ -42,26 +41,29 @@ const AuthContext =
 
 const CURRENT_USER_KEY = "satiety-current-user";
 
+function getSavedUser(): User | null {
+  const token = getToken();
+  const savedUser = localStorage.getItem(CURRENT_USER_KEY);
+
+  if (!token || !savedUser) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(savedUser) as User;
+  } catch {
+    removeToken();
+    localStorage.removeItem(CURRENT_USER_KEY);
+    return null;
+  }
+}
+
 export function AuthProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [user, setUser] =
-    useState<User | null>(null);
-
-  useEffect(() => {
-    const token = getToken();
-
-    const savedUser =
-      localStorage.getItem(
-        CURRENT_USER_KEY
-      );
-
-    if (token && savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
-  }, []);
+  const [user, setUser] = useState<User | null>(getSavedUser);
 
   async function signup(
     name: string,
