@@ -18,15 +18,11 @@ export async function getWorkspacesApi() {
   // return response.json();
    const token = getToken();
 
-  console.log("TOKEN =", token);
-
   const response = await fetch(`${API_URL}/workspaces`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-
-  console.log("STATUS =", response.status);
 
   if (!response.ok) {
     throw new Error("Failed to fetch workspaces");
