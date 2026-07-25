@@ -1,0 +1,53 @@
+name: Deploy Version
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Docker Image Version (e.g. v1.0.0)"
+        required: true
+        default: "v1.0.0"
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      #################################################
+      # Update Frontend Image
+      #################################################
+
+      - name: Deploy Frontend
+        run: |
+          kubectl set image deployment/satiety-frontend \
+          frontend=${{ secrets.DOCKER_USERNAME }}/satiety-frontend:${{ github.event.inputs.version }}
+
+      #################################################
+      # Update Backend Image
+      #################################################
+
+      - name: Deploy Backend
+        run: |
+          kubectl set image deployment/satiety-backend \
+          backend=${{ secrets.DOCKER_USERNAME }}/satiety-backend:${{ github.event.inputs.version }}
+
+      #################################################
+
+      - name: Wait Frontend Rollout
+        run: |
+          kubectl rollout status deployment/satiety-frontend
+
+      - name: Wait Backend Rollout
+        run: |
+          kubectl rollout status deployment/satiety-backend
+
+      #################################################
+
+      - name: Show Images
+        run: |
+          kubectl get deploy
+          kubectl describe deployment satiety-backend
+          kubectl describe deployment satiety-frontend
