@@ -1,6 +1,6 @@
 import type { Message } from "../types/chat";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/chat`;
+const API_URL = `${import.meta.env.VITE_API_URL || "/api"}/chat`;
 
 export async function sendMessage(messages: Message[]) {
 let response: Response;

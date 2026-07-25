@@ -1,7 +1,7 @@
-// const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
 
 export async function checkBackendHealth() {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/chat`);
+  const response = await fetch(`${API_BASE_URL}/chat`);
 
   if (!response.ok) {
     throw new Error("Backend is not responding.");

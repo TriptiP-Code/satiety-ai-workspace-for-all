@@ -1,6 +1,6 @@
 import type { User } from "../types/user";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || "/api";
 
 interface AuthResponse {
   success: boolean;
