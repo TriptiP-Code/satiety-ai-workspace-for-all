@@ -21,18 +21,16 @@ jobs:
       #################################################
 
       - name: Deploy Frontend
-        run: |
-          kubectl set image deployment/satiety-frontend \
-          frontend=${{ secrets.DOCKER_USERNAME }}/satiety-frontend:${{ github.event.inputs.version }}
+        shell: pwsh
+        run: kubectl set image deployment/satiety-frontend frontend=${{ secrets.DOCKER_USERNAME }}/satiety-frontend:${{ github.event.inputs.version }}
 
       #################################################
       # Update Backend Image
       #################################################
 
       - name: Deploy Backend
-        run: |
-          kubectl set image deployment/satiety-backend \
-          backend=${{ secrets.DOCKER_USERNAME }}/satiety-backend:${{ github.event.inputs.version }}
+        shell: pwsh
+        run: kubectl set image deployment/satiety-backend backend=${{ secrets.DOCKER_USERNAME }}/satiety-backend:${{ github.event.inputs.version }}
 
       #################################################
 
