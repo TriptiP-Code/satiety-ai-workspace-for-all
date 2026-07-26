@@ -23,6 +23,24 @@ jobs:
           echo "VERSION=$version" >> $env:GITHUB_ENV
 
       #################################################
+      # Apply Kubernetes manifests
+      #################################################
+
+      - name: Apply Kubernetes manifests
+        shell: pwsh
+        run: |
+          # Do not apply backend-secret.yaml: it is a template with placeholder values.
+          kubectl apply -f k8s/backend-configmap.yaml
+          kubectl apply -f k8s/backend-deployment.yaml
+          kubectl apply -f k8s/backend-service.yaml
+          kubectl apply -f k8s/backend-servicemonitor.yaml
+          kubectl apply -f k8s/backend-hpa.yaml
+          kubectl apply -f k8s/frontend-deployment.yaml
+          kubectl apply -f k8s/frontend-service.yaml
+          kubectl apply -f k8s/frontend-hpa.yaml
+          kubectl apply -f k8s/ingress.yaml
+
+      #################################################
       # Deploy Frontend
       #################################################
 
