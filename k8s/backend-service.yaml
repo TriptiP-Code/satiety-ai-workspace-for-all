@@ -3,14 +3,18 @@ kind: Service
 
 metadata:
   name: satiety-backend-service
+  labels:
+    app: satiety-backend
 
 spec:
   selector:
     app: satiety-backend
 
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 5000
       targetPort: 5000
+      nodePort: 32364
 
   type: NodePort
