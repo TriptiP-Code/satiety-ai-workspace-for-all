@@ -1,36 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
-
 metadata:
-  name: satiety-frontend
-
+  name: frontend
 spec:
   replicas: 1
-
   selector:
     matchLabels:
-      app: satiety-frontend
-
+      app: frontend
   template:
     metadata:
       labels:
-        app: satiety-frontend
-
+        app: frontend
     spec:
       containers:
         - name: frontend
-
-          image: triptipcode/satiety-frontend:latest
-
+          image: 799675180298.dkr.ecr.us-east-1.amazonaws.com/satiety-ai-frontend:latest
           imagePullPolicy: Always
-
-          resources:
-            requests:
-              cpu: "200m"
-              memory: "256Mi"
-            limits:
-              cpu: "1000m"
-              memory: "512Mi"          
 
           ports:
             - containerPort: 80

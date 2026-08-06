@@ -1,0 +1,20 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+terraform.tfvars.json
+crash.log
+
+# Keep the lock file
+!.terraform.lock.hcl
+
+# Node
+node_modules/
+
+# Environment
+.env
+.env.*
+
+# VS Code
+.vscode/

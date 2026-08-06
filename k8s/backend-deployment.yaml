@@ -1,34 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
-
 metadata:
-  name: satiety-backend
-
+  name: backend
 spec:
   replicas: 1
-
   selector:
     matchLabels:
-      app: satiety-backend
-
+      app: backend
   template:
     metadata:
       labels:
-        app: satiety-backend
-
+        app: backend
     spec:
       containers:
         - name: backend
-          image: triptipcode/satiety-backend:latest
+          image: 799675180298.dkr.ecr.us-east-1.amazonaws.com/satiety-ai-backend:latest
           imagePullPolicy: Always
-
-          resources:
-            requests:
-              cpu: "200m"
-              memory: "256Mi"
-            limits:
-              cpu: "1000m"
-              memory: "512Mi"
 
           ports:
             - containerPort: 5000
@@ -36,28 +23,5 @@ spec:
           envFrom:
             - configMapRef:
                 name: backend-config
-
-          env:
-            - name: SUPABASE_SERVICE_ROLE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: backend-secret
-                  key: SUPABASE_SERVICE_ROLE_KEY
-
-            - name: SUPABASE_ANON_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: backend-secret
-                  key: SUPABASE_ANON_KEY
-
-            - name: JWT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: backend-secret
-                  key: JWT_SECRET
-
-            - name: GEMINI_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: backend-secret
-                  key: GEMINI_API_KEY
+            - secretRef:
+                name: backend-secret
